@@ -1,0 +1,36 @@
+{
+    "products":[
+        {
+            "_id": "dress1",
+            "title": "When an unknown printer took a galley",
+            "image": "/images/dress1.jpg",
+            "description": "about dress 1",
+            "price": 19.45,
+            "availableSizes": ["X", "XL", "XXL"]
+        },
+        {
+            "_id": "dress2",
+            "title": "Aldus PageMaker including versions of Lorem Ipsum",
+            "image": "/images/dress2.jpg",
+            "description": "about dress 2",
+            "price": 22.9,
+            "availableSizes": ["X", "M", "L"]
+        },
+        {
+            "_id": "dress3",
+            "title": "Established fact that a reader will be distracted",
+            "image": "/images/dress3.jpg",
+            "description": "about dress 3",
+            "price": 18.5,
+            "availableSizes": ["X", "M", "L", "XL"]
+        },
+        {
+            "_id": "dress4",
+            "title": "Various versions have evolved over the years",
+            "image": "/images/dress4.jpg",
+            "description": "about dress 4",
+            "price": 16.5,
+            "availableSizes": ["X", "L", "XL"]
+        }
+    ]
+}
