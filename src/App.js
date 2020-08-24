@@ -3,16 +3,56 @@ import data from './data.json';
 
 import Products from './components/Products';
 import Filter from './components/Filter';
+import Cart from './components/Cart';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      // กำหนด product state บน data.json
       products: data.products,
+      // กำหนด cartItems state เท่ากับ Array
+      cartItems: [],
+      // กำหนด Size state เท่ากับค่าว่าง
       size: "",
+      // กำหนด sort state เท่ากับค่าว่าง
       sort: "",
     };
   }
+  // add to cart function
+  addToCart = (product) => {
+    // สร้างตัวแปล cartItems เป็น array เมื่อมีการเพิ่มค่า
+    const cartItems = this.state.cartItems.slice();
+    // กำหนดสินค้าเริ่มต้นเป็น false เพื่อให้รู้ว่าสินค้าไหน add แล้ว
+    let alreadyInCart = false;
+    // ลูป cartItems โชว์ข้อมูลเป็น item บน function 
+    cartItems.forEach((item) => {
+      // ถ้้า item._id เท่ากับ product._id 
+      if (item._id === product._id) {
+        // ให้ item เพิ่มทีละ 1
+        item.count++;
+        // กำหนดว่าสินค้านั้นคลิกแล้ว
+        alreadyInCart = true;
+      }
+    });
+    // ถ้ายังไม่มีสินค้าในตะกร้า
+    if(!alreadyInCart) {
+      // เพิ่ม ...product ใน cartItems , กำหนด count = 1
+      cartItems.push({...product, count: 1});
+    }
+    // ตั้งค่า state cartItems ให้เป็นปัจจุบัน
+    this.setState({cartItems});
+  }
+  // remove from cart function 
+  removeFromCart = (product) => {
+    // สร้างตัวแปล cartItems เป็น array เมื่อมีการเพิ่มค่า
+    const cartItems = this.state.cartItems.slice();
+    this.setState({
+      // filter ลบ cart เมื่อ x._id ไม่เท่ากับ product._id 
+      cartItems: cartItems.filter((x) => x._id !== product._id),
+    });
+  }
+  // sort Products function
   sortProducts = (event) => {
     const sort = event.target.value;
     console.log(event.target.value);
@@ -25,6 +65,7 @@ class App extends Component {
       ))
     }))
   }
+  // filter Products
   filterProducts = (event) => {
     // impl
     console.log(event.target.value);
@@ -51,9 +92,12 @@ class App extends Component {
               sort={this.state.sort}
               filterProducts={this.filterProducts}
               sortProducts={this.sortProducts}></Filter>
-              <Products products={this.state.products} ></Products>
+              <Products products={this.state.products} addToCart={this.addToCart}></Products>
             </div>
-            <div className="sidebar">Cart Items</div>
+            <div className="sidebar">
+              <Cart cartItems={this.state.cartItems}
+              removeFromCart={this.removeFromCart}></Cart>
+            </div>
          </div>
        </main>
        <footer>
